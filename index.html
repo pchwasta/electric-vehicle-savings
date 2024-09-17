@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV vs Gas Car Savings Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            max-width: 600px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .input-field {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>EV vs Gas Car Savings Calculator</h1>
+    <div class="container">
+        <div class="input-field">
+            <label for="electricityCost">Electricity Cost per kWh ($):</label>
+            <input type="number" id="electricityCost" placeholder="e.g., 0.12" step="0.01">
+        </div>
+        <div class="input-field">
+            <label for="evEfficiency">EV Efficiency (miles per kWh):</label>
+            <input type="number" id="evEfficiency" placeholder="e.g., 4.0" step="0.1">
+        </div>
+        <div class="input-field">
+            <label for="gasPrice">Gas Price per Gallon ($):</label>
+            <input type="number" id="gasPrice" placeholder="e.g., 3.50" step="0.01">
+        </div>
+        <div class="input-field">
+            <label for="carEfficiency">Car Efficiency (miles per gallon):</label>
+            <input type="number" id="carEfficiency" placeholder="e.g., 25" step="0.1">
+        </div>
+        <div class="input-field">
+            <label for="milesDriven">Miles Driven:</label>
+            <input type="number" id="milesDriven" placeholder="e.g., 1000">
+        </div>
+        <button onclick="calculateSavings()">Calculate Savings</button>
+    </div>
+
+    <div class="result" id="result"></div>
+
+    <script>
+        function calculateSavings() {
+            // Get the user inputs
+            const electricityCost = parseFloat(document.getElementById('electricityCost').value);
+            const evEfficiency = parseFloat(document.getElementById('evEfficiency').value);
+            const gasPrice = parseFloat(document.getElementById('gasPrice').value);
+            const carEfficiency = parseFloat(document.getElementById('carEfficiency').value);
+            const milesDriven = parseFloat(document.getElementById('milesDriven').value);
+
+            // Calculate EV cost
+            const evCost = (milesDriven / evEfficiency) * electricityCost;
+
+            // Calculate Gas Car cost
+            const gasCarCost = (milesDriven / carEfficiency) * gasPrice;
+
+            // Calculate savings
+            const savings = gasCarCost - evCost;
+
+            // Display the result
+            document.getElementById('result').innerHTML = `
+                <p>EV Cost: $${evCost.toFixed(2)}</p>
+                <p>Gas Car Cost: $${gasCarCost.toFixed(2)}</p>
+                <p><strong>Savings: $${savings.toFixed(2)}</strong></p>
+            `;
+        }
+    </script>
+
+</body>
+</html>
