@@ -50,6 +50,11 @@
             font-size: 1.2em;
             text-align: center;
         }
+        .savings-msg {
+            margin-top: 10px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -100,10 +105,19 @@
             const savings = gasCarCost - evCost;
 
             // Wyświetlenie wyników
+            let savingsMessage = '';
+            if (savings > 0) {
+                savingsMessage = `Jazda pojazdem elektrycznym pozwala zaoszczędzić ${savings.toFixed(2)} zł w porównaniu z samochodem spalinowym.`;
+            } else if (savings < 0) {
+                savingsMessage = `Jazda samochodem spalinowym jest tańsza o ${Math.abs(savings).toFixed(2)} zł w porównaniu z pojazdem elektrycznym.`;
+            } else {
+                savingsMessage = `Koszty jazdy pojazdem elektrycznym i samochodem spalinowym są identyczne.`;
+            }
+
             document.getElementById('result').innerHTML = `
                 <p>Koszt jazdy EV: ${evCost.toFixed(2)} zł</p>
                 <p>Koszt jazdy samochodem spalinowym: ${gasCarCost.toFixed(2)} zł</p>
-                <p><strong>Oszczędności: ${savings.toFixed(2)} zł</strong></p>
+                <div class="savings-msg">${savingsMessage}</div>
             `;
         }
     </script>
